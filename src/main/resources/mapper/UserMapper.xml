@@ -8,5 +8,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="version" jdbcType="TINYINT" property="version" />
   </resultMap>
 </mapper>

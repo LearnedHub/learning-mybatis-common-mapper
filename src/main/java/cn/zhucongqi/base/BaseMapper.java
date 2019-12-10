@@ -14,7 +14,4 @@ import tk.mybatis.mapper.common.MySqlMapper;
  */
 public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
 
-    @Select("select * from user where id = #{id}")
-    T getHello(Object id);
-
 }

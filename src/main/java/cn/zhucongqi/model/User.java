@@ -1,5 +1,7 @@
 package cn.zhucongqi.model;
 
+import tk.mybatis.mapper.annotation.Version;
+
 import javax.persistence.*;
 
 @Table(name = "`user`")
@@ -14,6 +16,10 @@ public class User {
 
     @Column(name = "`addr`")
     private String addr;
+
+    @Version
+    @Column(name = "`version`")
+    private Integer version;
 
     /**
      * @return id
@@ -55,5 +61,19 @@ public class User {
      */
     public void setAddr(String addr) {
         this.addr = addr;
+    }
+
+    /**
+     * @return version
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

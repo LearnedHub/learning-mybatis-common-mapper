@@ -1,10 +1,13 @@
 package cn.zhucongqi.demos;
 
+import cn.zhucongqi.mapper.ManualUserMapper;
+import cn.zhucongqi.mapper.ext.ManualMapperExt;
+import cn.zhucongqi.model.User;
 import cn.zhucongqi.origin.mapper.OriginUserMapper;
 import cn.zhucongqi.mapper.UserMapper;
 import cn.zhucongqi.wrap.bean.UserOrders;
-import com.alibaba.fastjson.JSON;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,41 +27,47 @@ import java.util.HashMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class UserDemos {
+public class UserDemos extends BaseDemo{
 
     @Autowired
     SqlSession sqlSession;
 
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
+
     @Test
-    public void testUserMapper0() {
+    public void testUserMapper() {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-       //User user = userMapper.selectByPrimaryKey(1L);
-      // user = userMapper.getHello(1l);
-//        System.out.println(user+"😝😝😝😝😝😝😝😝😝");
+        User user = userMapper.selectByPrimaryKey(1L);
+        this.printObject(user);
+    }
 
-
-        OriginUserMapper originUserMapper = sqlSession.getMapper(OriginUserMapper.class);
-        originUserMapper.getUser(1l);
-
+    @Test
+    public void testManualUserMapper() {
+        ManualUserMapper manualUserMapper = sqlSession.getMapper(ManualUserMapper.class);
+        User user = manualUserMapper.getUser(1l);
+        this.printObject(user);
     }
 
     @Test
     public void testOriginFunc() {
         OriginUserMapper originUserMapper = sqlSession.getMapper(OriginUserMapper.class);
-
-       HashMap ret = originUserMapper.getOriginUser(1l);
-
+        HashMap ret = originUserMapper.getOriginUser(1l);
+        this.printObject(ret);
     }
 
     @Test
     public void testOne2ManyFunc() {
-
         OriginUserMapper originUserMapper = sqlSession.getMapper(OriginUserMapper.class);
-
         UserOrders userOrders = originUserMapper.getUserOrders(11l);
+        this.printObject(userOrders);
+    }
 
-
-        System.out.println("ret to json"+ JSON.toJSON(userOrders));
+    @Test
+    public void testManualProvider() {
+        ManualMapperExt manualUserMapperExt = sqlSession.getMapper(ManualMapperExt.class);
+        User user = manualUserMapperExt.getObjectByManualLogic(11);
+        this.printObject(user);
     }
 }
