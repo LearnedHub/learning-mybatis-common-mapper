@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zhucongqi.origin.mapper.OriginUserMapper">
+
+    <resultMap id="userMap" type="user">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="addr" property="addr"/>
+    </resultMap>
+
+    <resultMap id="orderMap" type="order">
+        <id column="oid" jdbcType="INTEGER" property="id" />
+        <result column="uid" jdbcType="INTEGER" property="uid" />
+        <result column="date" jdbcType="DATE" property="date" />
+        <result column="descr" jdbcType="VARCHAR" property="descr" />
+    </resultMap>
+    
+    <resultMap id="getOriginUser" type="hashmap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="addr" property="addr"/>
+        <result column="name" property="localName"/>
+        <result column="addr" property="localAddr"/>
+    </resultMap>
+
+    <resultMap id="getUser2" type="userOrders" extends="userMap">
+        <collection property="orders" resultMap="orderMap"/>
+    </resultMap>
+
+    <select id="getUser" resultType="user">
+        select * from user where id = #{id}
+    </select>
+    <select id="getOriginUser" resultMap="getOriginUser">
+        select * from user where id = #{id}
+    </select>
+    <select id="getUserOrders" resultMap="getUser2">
+         select
+         u.id, u.name, u.addr, o.id oid, o.uid uid, o.date, o.descr
+         from user u, mallorder o
+         where
+         o.uid = u.id
+         and
+         u.id = #{id, jdbcType=INTEGER}
+    </select>
+</mapper>
