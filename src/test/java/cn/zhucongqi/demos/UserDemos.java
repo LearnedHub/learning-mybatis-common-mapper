@@ -39,28 +39,28 @@ public class UserDemos extends BaseDemo{
     public void testUserMapper() {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-        User user = userMapper.selectByPrimaryKey(1L);
+        User user = userMapper.selectByPrimaryKey(1);
         this.printObject(user);
     }
 
     @Test
     public void testManualUserMapper() {
         ManualUserMapper manualUserMapper = sqlSession.getMapper(ManualUserMapper.class);
-        User user = manualUserMapper.getUser(1l);
+        User user = manualUserMapper.getUser(1);
         this.printObject(user);
     }
 
     @Test
     public void testOriginFunc() {
         OriginUserMapper originUserMapper = sqlSession.getMapper(OriginUserMapper.class);
-        HashMap ret = originUserMapper.getOriginUser(1l);
+        HashMap ret = originUserMapper.getOriginUser(1);
         this.printObject(ret);
     }
 
     @Test
     public void testOne2ManyFunc() {
         OriginUserMapper originUserMapper = sqlSession.getMapper(OriginUserMapper.class);
-        UserOrders userOrders = originUserMapper.getUserOrders(11l);
+        UserOrders userOrders = originUserMapper.getUserOrders(11);
         this.printObject(userOrders);
     }
 
@@ -68,6 +68,16 @@ public class UserDemos extends BaseDemo{
     public void testManualProvider() {
         ManualMapperExt manualUserMapperExt = sqlSession.getMapper(ManualMapperExt.class);
         User user = manualUserMapperExt.getObjectByManualLogic(11);
+        this.printObject(user);
+    }
+
+    @Test
+    public void testAnno() {
+        ManualMapperExt manualUserMapperExt = sqlSession.getMapper(ManualMapperExt.class);
+
+        User user = new User();
+        user.setAddr("aaa");
+        user = manualUserMapperExt.getAnno(user);
         this.printObject(user);
     }
 }

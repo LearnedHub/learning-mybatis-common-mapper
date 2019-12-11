@@ -15,9 +15,9 @@ import java.util.HashMap;
  */
 public interface OriginUserMapper {
 
-    User getUser(Long id);
+    User getUser(Integer id);
 
-    HashMap getOriginUser(Long id);
+    HashMap getOriginUser(Integer id);
 
-    UserOrders getUserOrders(Long id);
+    UserOrders getUserOrders(Integer id);
 }

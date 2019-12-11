@@ -1,5 +1,6 @@
 package cn.zhucongqi.model;
 
+import cn.zhucongqi.base.anno.Anno;
 import tk.mybatis.mapper.annotation.Version;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class User {
     @Column(name = "`name`")
     private String name;
 
+    @Anno
     @Column(name = "`addr`")
     private String addr;
 
