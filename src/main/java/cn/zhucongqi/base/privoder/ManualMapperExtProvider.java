@@ -37,7 +37,7 @@ public class ManualMapperExtProvider extends MapperTemplate {
         return sql.toString();
     }
 
-    public String getAnno(MappedStatement ms) {
+    public String getAnnotationValue(MappedStatement ms) {
         Class<?> entityClass = this.getEntityClass(ms);
         this.setResultType(ms, entityClass);
         StringBuilder sql = new StringBuilder();

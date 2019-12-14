@@ -22,5 +22,5 @@ public interface BaseManualMapperExt<T> extends BaseMapper<T> {
     T getObjectByManualLogic(Integer id);
 
     @SelectProvider(type = ManualMapperExtProvider.class, method = "dynamicSQL")
-    T getAnno(T t);
+    T getAnnotationValue(T t);
 }

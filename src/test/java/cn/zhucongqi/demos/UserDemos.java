@@ -77,7 +77,7 @@ public class UserDemos extends BaseDemo{
 
         User user = new User();
         user.setAddr("aaa");
-        user = manualUserMapperExt.getAnno(user);
+        user = manualUserMapperExt.getAnnotationValue(user);
         this.printObject(user);
     }
 }
